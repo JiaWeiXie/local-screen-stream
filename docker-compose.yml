@@ -1,0 +1,21 @@
+version: "3"
+
+name: mediamtx
+
+x-docker-defaults: &docker_defaults
+  restart: unless-stopped
+
+services:
+  media_server:
+    <<: *docker_defaults
+    image: bluenviron/mediamtx:latest-ffmpeg-rpi
+    environment:
+      MTX_PROTOCOLS: tcp
+      MTX_WEBRTCADDITIONALHOSTS: ${MTX_WEBRTCADDITIONALHOSTS:-localhost}
+    ports:
+      - "8554:8554"
+      - "1935:1935"
+      - "8888:8888"
+      - "8889:8889"
+      - "8890:8890/udp"
+      - "8189:8189/udp"
